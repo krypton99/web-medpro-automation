@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="0" failed="1" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2024-11-02T12:41:39 ICT" name="Surefire suite" finished-at="2024-11-02T12:41:49 ICT" duration-ms="9699">
+    <groups>
+    </groups>
+    <test started-at="2024-11-02T12:41:39 ICT" name="Surefire test" finished-at="2024-11-02T12:41:49 ICT" duration-ms="9699">
+      <class name="cucumberoptions.RunCukeTest">
+        <test-method is-config="true" signature="setUpClass()[pri:0, instance:cucumberoptions.RunCukeTest@4d465b11]" started-at="2024-11-02T12:41:39 ICT" name="setUpClass" finished-at="2024-11-02T12:41:40 ICT" duration-ms="768" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpClass -->
+        <test-method signature="feature(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:cucumberoptions.RunCukeTest@4d465b11]" started-at="2024-11-02T12:41:40 ICT" name="feature" description="Run Cucumber Features" data-provider="scenarios" finished-at="2024-11-02T12:41:49 ICT" duration-ms="8848" status="FAIL">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA["Assert homepage attribute"]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA["Homepage"]]>
+              </value>
+            </param>
+          </params>
+          <exception class="java.lang.ClassCastException">
+            <message>
+              <![CDATA[class org.openqa.selenium.By$ByXPath cannot be cast to class io.appium.java_client.AppiumBy (org.openqa.selenium.By$ByXPath and io.appium.java_client.AppiumBy are in unnamed module of loader 'app')]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.ClassCastException: class org.openqa.selenium.By$ByXPath cannot be cast to class io.appium.java_client.AppiumBy (org.openqa.selenium.By$ByXPath and io.appium.java_client.AppiumBy are in unnamed module of loader 'app')
+at page.HomePage.tapOnCloseBanner(HomePage.java:44)
+at stepdefinitions.HomePageStepDefinitions.user_close_popup_banner(HomePageStepDefinitions.java:30)
+at ✽.User close popup banner(file:///D:/FPT_Autotest/TestNG/Medpro-Regression/src/test/resources/features/AddToCart.feature:12)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.ClassCastException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- feature -->
+        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:cucumberoptions.RunCukeTest@4d465b11]" started-at="2024-11-02T12:41:49 ICT" name="tearDownClass" finished-at="2024-11-02T12:41:49 ICT" duration-ms="43" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownClass -->
+      </class> <!-- cucumberoptions.RunCukeTest -->
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
+</testng-results>
