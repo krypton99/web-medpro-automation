@@ -1,0 +1,10 @@
+
+test-output/testng-results.xml
+/test-output
+/test-output
+/test-output/old
+test-output/testng-results.xml
+/test-output
+/test-output/junitreports
+/target
+target/cucumber-reports/CucumberTestReport.json
