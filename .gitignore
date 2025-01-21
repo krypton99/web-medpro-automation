@@ -8,3 +8,13 @@ test-output/testng-results.xml
 /test-output/junitreports
 /target
 target/cucumber-reports/CucumberTestReport.json
+/target/cucumber-reports
+/target/cucumber-reports
+/target
+target/cucumber-reports/cucumber-pretty.html
+target/cucumber-reports/CucumberTestReport.json
+target/test-classes/features/Homepage.feature
+test-output/Default suite/Default test.html
+test-output/Default suite/Default test.xml
+test-output/emailable-report.html
+test-output/index.html
