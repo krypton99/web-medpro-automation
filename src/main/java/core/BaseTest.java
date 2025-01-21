@@ -7,6 +7,7 @@ import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterSuite;
@@ -14,8 +15,10 @@ import org.testng.annotations.BeforeSuite;
 
 
 public class BaseTest {
+	
 	protected static WebDriver driver;
-
+	
+	protected static Actions action;
 	
 	public static void beforeSuite() {
 		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
@@ -23,6 +26,7 @@ public class BaseTest {
 		options.addArguments(
 				"--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3");
 		driver = new ChromeDriver(options);
+		action = new Actions(driver);
 	}
 	
 	public static void tearDown() {
@@ -35,5 +39,9 @@ public class BaseTest {
 
 	public static WebDriver getDriver() {
 		return driver;
+	}
+	
+	public static Actions getAction() {
+		return action;
 	}
 }

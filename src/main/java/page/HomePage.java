@@ -16,22 +16,11 @@ import core.BasePage;
 import core.Label;
 import core.Constants;
 
-public class HomePage extends BasePage {
+public class HomePage extends ServiceLayout {
 
-	public HomePage(WebDriver driver) {
-		super(driver);
-	}
-	@FindBy(how = How.XPATH, using = "//h3[contains(text(),'Đặt khám theo bác sĩ')]")
-	private WebElement bookingByDoctor;
-
-	public void navigateToHomePage() {
-		driver.navigate().to(baseUrl);
+	public HomePage(WebDriver driver, Actions action) {
+		super(driver, action);
 	}
 	
-	public boolean isBookingByDoctorDisplayed() {
-		return isElementVisibility(bookingByDoctor);
-	}
-
 	
-
 }
