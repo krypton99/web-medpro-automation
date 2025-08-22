@@ -1,10 +1,13 @@
 package cucumberoptions;
 
+import java.io.IOException;
+
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import core.ExcelUtils;
 import io.cucumber.testng.CucumberOptions;
 import io.cucumber.testng.FeatureWrapper;
 import io.cucumber.testng.PickleWrapper;
@@ -16,7 +19,7 @@ import io.cucumber.testng.TestNGCucumberRunner;
 		"html:target/cucumber-reports/cucumber-pretty.html", 
 		"json:target/cucumber-reports/CucumberTestReport.json",
 		"rerun:target/cucumber-reports/rerun.txt" },
-		tags = "@verify_homepage_ui")
+		tags = "@verify_feature_element")
 
 public class RunCukeTest {
 		private TestNGCucumberRunner testNGCucumberRunner;
@@ -33,6 +36,8 @@ public class RunCukeTest {
 			// Chạy một kịch bản riêng lẻ bằng cách lấy pickle từ PickleWrapper
 	        testNGCucumberRunner.runScenario(pickleWrapper.getPickle());  
 	    }
+		
+		
 		
 		// DataProvider cung cấp các scenarios cho phương thức kiểm thử  
 		@DataProvider(name = "scenarios")  

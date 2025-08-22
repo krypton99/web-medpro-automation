@@ -8,7 +8,7 @@ import org.openqa.selenium.support.How;
 
 import core.BasePage;
 
-public class ServiceLayout extends BasePage{
+public class ServiceLayout extends BasePage {
 
 	public ServiceLayout(WebDriver driver, Actions action) {
 		super(driver, action);
@@ -39,8 +39,37 @@ public class ServiceLayout extends BasePage{
 	@FindBy(how = How.XPATH, using = "//h3[contains(text(),'Thanh toán Viện phí')]/..")
 	private WebElement ftMedicalFeePay;
 
+	@FindBy(how = How.XPATH, using = "//div[@class='styles_NewPackageMonth__opibT']")
+	private WebElement mostLikeCSYTSection;
+
+	@FindBy(how = How.XPATH, using = "//div[@class='styles_NewDoctorTelemed__J0G0e']")
+	private WebElement telemedSection;
+
+	@FindBy(how = How.XPATH, using = "//div[@class='styles_NewBookingPackage__YfRIj']")
+	private WebElement healthPackageSection;
+
+	@FindBy(how = How.XPATH, using = "//div[@class='styles_CarouselBanner__FZzTn']")
+	private WebElement homeMultiCarouselBannerSection;
+
+	@FindBy(how = How.XPATH, using = "//div[@class='slick-arrow slick-next styles_btnNext__s56Fp']")
+	private WebElement ftNextButton;
+
+	protected String ftSelector = "//div[@class='styles_serviceHeader__rJZ7Q']//h3[contains(text(),'%s')]";
+
 	public void navigateToHomePage() {
-		driver.get(baseUrl);
+		get(baseUrl);
+	}
+	public boolean isMostLikeCSYTDisplayed() {
+		return isElementVisibility(mostLikeCSYTSection);
+	}
+	public boolean isTelemedSectionDisplay() {
+		return isElementVisibility(telemedSection);
+	}
+	public boolean isHealthPackageSectionDisplayed() {
+		return isElementVisibility(healthPackageSection);
+	}
+	public boolean isMultiCarouselBannerSectionDisplayed() {
+		return isElementVisibility(homeMultiCarouselBannerSection);
 	}
 	
 	public boolean isFtBookingByDoctorDisplayed() {
@@ -73,5 +102,12 @@ public class ServiceLayout extends BasePage{
 	
 	public boolean isFtMedicalFeePayDisplayed() {
 		return isElementVisibility(ftMedicalFeePay);
+	}
+	
+	public void clickOnFtBookingAtHospital() {
+		clickOn(ftBookingAtHospital);
+	}
+	public void clickOnFtNextButton() {
+		clickOn(ftNextButton);
 	}
 }

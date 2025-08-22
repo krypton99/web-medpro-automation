@@ -10,8 +10,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
 
 
 public class BaseTest {
@@ -25,6 +23,7 @@ public class BaseTest {
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments(
 				"--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3");
+		options.setAcceptInsecureCerts(true);
 		driver = new ChromeDriver(options);
 		action = new Actions(driver);
 	}

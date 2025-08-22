@@ -2,6 +2,7 @@ package core;
 
 import java.time.Duration;
 import java.util.Collections;
+import java.util.HashMap;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -22,13 +23,12 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BasePage {
-	private static final int TIMEOUT = 20;
+	private static final int TIMEOUT = 5;
 	private static final int POLLING = 100;
-
 	protected WebDriver driver;
 	private WebDriverWait wait;
 	private WebDriverWait waitWithSpecificTimeout;
-	
+	public static HashMap<String,WebElement> element;
 	protected Actions action;
 	
 	public static String baseUrl;
@@ -54,7 +54,7 @@ public class BasePage {
 	@FindBy(how = How.CLASS_NAME, using = "styles_download__3Ze_q")
 	private WebElement navDownloadApp;
 	
-	@FindBy(how = How.ID, using = "dropInfo")
+	@FindBy(how = How.XPATH, using = "//button[@class='ant-btn ant-btn-default styles_btnAntd__zap7d styles_btnUser__XQ84d']")
 	private WebElement navProfile;
 	
 	@FindBy(how = How.CLASS_NAME, using = "styles_btnLanguage__8ISvU")
@@ -141,6 +141,55 @@ public class BasePage {
 	@FindBy(how = How.XPATH, using = "//a[@href='/tin-tuc']/..//li[contains(text(),'Y học thường thức')]")
 	private WebElement subMenuTintuc_Yhocthuongthuc;
 
+	public boolean isLogoVisibility() {
+		return isElementVisibility(navlogoMedpro);
+	}
+
+	public boolean isTiktokLogoVisibility() {
+		return isElementVisibility(navTiktok);
+	}
+	public boolean isFacebookLogoVisibility() {
+		return isElementVisibility(navFacebook);
+	}
+	public boolean isZaloLogoVisibility() {
+		return isElementVisibility(navZalo);
+	}
+	public boolean isYoutubeLogoVisibility() {
+		return isElementVisibility(navYoutube);
+	}
+	public boolean isNotificationButtonVisibility() {
+		return isElementVisibility(navBell);
+	}
+	public boolean isDownloadAppButtonVisibility() {
+		return isElementVisibility(navDownloadApp);
+	}
+	public boolean isAccountMenuVisibility() {
+		return isElementVisibility(navProfile);
+	}
+	public boolean isLanguageVisibility() {
+		return isElementVisibility(navLanguage);
+	}
+	public boolean isCallCSKHButtonVisibility() {
+		return isElementVisibility(navCallCSKH);
+	}
+	public boolean isHealthFacilityVisibility() {
+		return isElementVisibility(navCSYT);
+	}
+	public boolean isHealthServiceVisibility() {
+		return isElementVisibility(navDVYT);
+	}
+	public boolean isCorporateHealthCheckVisibility() {
+		return isElementVisibility(navKSKDN);
+	}
+	public boolean isHealthNewsVisibility() {
+		return isElementVisibility(navNews);
+	}
+	public boolean isHelpsMenuVisibility() {
+		return isElementVisibility(navGuide);
+	}
+	public boolean isContactForCooperateMenuVisibility() {
+		return isElementVisibility(navSupport);
+	}
 	public boolean isElementVisibility(WebElement element) {
 		try {
 			wait.until(ExpectedConditions.visibilityOf(element));
@@ -171,14 +220,32 @@ public class BasePage {
 		}
 	}
 
+	public boolean isElementVisibilityBy(By by, int timeout) {
+		// chờ với thời gian truyền vào (giay)
+		waitWithSpecificTimeout = new WebDriverWait(driver, Duration.ofSeconds(timeout));
+		try {
+			waitWithSpecificTimeout.until(ExpectedConditions.visibilityOfElementLocated(by));
+			return true;
+		} catch (TimeoutException ex) {
+			return false;
+		}
+	}
+
 	public void enterText(WebElement element, String text) {
+		System.out.println("Entering text: " + text);
 		wait.until(ExpectedConditions.visibilityOf(element));
 		element.sendKeys(text);
 	}
 	
 	public void clickOn(WebElement element) {
+		System.out.println("Performing click...");
 		wait.until(ExpectedConditions.visibilityOf(element));
 		element.click();
+	}
+	
+	public void clickOnBy(By by) {
+		System.out.println("Performing click...");
+		wait.until(ExpectedConditions.visibilityOfElementLocated(by)).click();
 	}
 
 	public String getText(WebElement element) {
@@ -192,6 +259,23 @@ public class BasePage {
 		wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT), Duration.ofMillis(POLLING));
 		waitWithSpecificTimeout = new WebDriverWait(driver, Duration.ofSeconds(Constants.TIMEOUT));
 		PageFactory.initElements(driver, this);
+		element = new HashMap<>();
+		element.put("Logo Medpro", navlogoMedpro);
+		element.put("Tiktok", navTiktok);
+		element.put("Facebook", navFacebook);
+		element.put("Zalo", navZalo);
+		element.put("Youtube", navYoutube);
+		element.put("Thông báo", navBell);
+		element.put("Tải ứng dụng", navDownloadApp);
+		element.put("Tài khoản", navProfile);
+		element.put("Ngôn ngữ", navLanguage);
+		element.put("Hỗ trợ đặt khám", navCallCSKH);
+		element.put("Cơ sở y tế", navCSYT);
+		element.put("Dịch vụ y tế", navDVYT);
+		element.put("Khám sức khỏe doanh nghiệp", navKSKDN);
+		element.put("Tin tức", navNews);
+		element.put("Hướng dẫn", navGuide);
+		element.put("Liên hệ hợp tác", navSupport);
 	}
 	
 	public void clickOnGoiVideoVoiBacSi() {
@@ -200,6 +284,7 @@ public class BasePage {
 	}
 	
 	public void moveToElement(WebElement element) {
+		System.out.println("Moving mouse to " + element.getTagName());
 		wait.until(ExpectedConditions.visibilityOf(element));
 		action.moveToElement(element).perform();
 	}
@@ -218,7 +303,7 @@ public class BasePage {
 			case "staging":
 				baseUrl = Constants.BASE_URL_STAGING;
 				break;
-			default: 
+			default:
 				baseUrl = Constants.BASE_URL_PROD;
 				break;
 		}
@@ -227,10 +312,16 @@ public class BasePage {
 	public void navigateTo(String url) {
 		driver.navigate().to(url);
 	}
+	
+	public void get(String url) {
+		driver.get(Constants.BASE + url);
+	}
 
 	public WebDriverWait getDriverWait() {
 		return wait;
 	}
+
+
 }
 	
 	
