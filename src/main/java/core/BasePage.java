@@ -23,6 +23,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BasePage {
+	//Hello Nguyễn Ngọc Lân
 	private static final int TIMEOUT = 5;
 	private static final int POLLING = 100;
 	protected WebDriver driver;
