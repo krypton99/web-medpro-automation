@@ -2,6 +2,7 @@ package stepdefinitions;
 
 import io.cucumber.java.en.And;
 import org.checkerframework.checker.units.qual.h;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 
 import core.BasePage;
@@ -22,7 +23,6 @@ public class HomePageStepDefinitions {
 
 	public HomePageStepDefinitions() {
 		homePage = new HomePage(BaseTest.getDriver(), BaseTest.getAction());
-
 	}
 
 	@Given("User open Medpro")
@@ -237,11 +237,60 @@ public class HomePageStepDefinitions {
 	}
 
 	@And("User should click on health facility logo {string}")
-	public void userShouldClickOnHealthFacilityLogo(String arg0) {
-		
+	public void userShouldClickOnHealthFacilityLogo(String hospitalName) throws InterruptedException {
+
 	}
 
-	@Then("User should see health facility name on health facility detail page version {string}")
-	public void userShouldSeeHealthFacilityNameOnHealthFacilityDetailPageVersion(String arg0) {
+
+	@And("User should click on health facility logo {string} in slide {string}")
+	public void userShouldClickOnHealthFacilityLogoInSlide(String hospitalName, String slide) throws InterruptedException {
+		if(slide.equals("1")) {
+			homePage.clickOnAssociatedHospital(hospitalName.trim());
+		} else {
+			while (!homePage.isAssociatedHospitalLogoVisibilityByName(hospitalName.trim())) {
+				homePage.clickOnAssociatedHospitalNextButton();
+			}
+			homePage.clickOnAssociatedHospital(hospitalName.trim());
+		}
+		Thread.sleep(2000);
+	}
+
+	@And("User should click on carousel banner number {string}")
+	public void userShouldClickOnCarouselBannerNumber(String index) throws InterruptedException {
+		homePage.clickOnCarouselBanner(Integer.parseInt(index));
+		//Thread.sleep(4000);
+	}
+
+	@And("User should click on most like hospital card {string}")
+	public void userShouldClickOnMostLikeHospitalCard(String hospitalName) throws InterruptedException {
+		while (!homePage.isMostLikeHospitalCardDisplayed(hospitalName.trim())) {
+			homePage.clickOnMostLikeHospitalNextBtn();
+		}
+		homePage.clickOnMostLikeHospitalCard(hospitalName.trim());
+		Thread.sleep(2000);
+	}
+
+	@And("User should move to most like hospital section")
+	public void userShouldMoveToMostLikeHospitalSection() {
+		homePage.moveToMostLikeHospitalSection();
+	}
+
+	@And("User should click on most like hospital {string} booking button")
+	public void userShouldClickOnMostLikeHospitalBookingButton(String hospitalName) throws InterruptedException {
+		while (!homePage.isMostLikeHospitalCardDisplayed(hospitalName.trim())) {
+			homePage.clickOnMostLikeHospitalNextBtn();
+		}
+		homePage.clickOnMostLikeHospitalBookingButton(hospitalName.trim());
+		Thread.sleep(2000);
+	}
+
+	@And("User should move to carousel multi banner section")
+	public void userShouldMoveToCarouselMultiBannerSection() {
+		homePage.moveToCarouselMultiBannerSection();
+	}
+
+	@And("User should click on carousel multi banner with slide number {string} and banner number {string}")
+	public void userShouldClickOnCarouselMultiBannerWithSlideNumberAndBannerNumber(String slideNumber, String bannerNumber) throws InterruptedException {
+		homePage.clickOnMultiCarouselBanner(Integer.parseInt(slideNumber), Integer.parseInt(bannerNumber));
 	}
 }

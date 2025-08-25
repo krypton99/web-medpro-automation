@@ -74,7 +74,7 @@ Feature: Homepage
     Then User should redirect to "<url>" with type "<type>"
     Examples:
       | header_element             | url                                          | type  |
-      | Logo Medpro                | https://medpro.vn/                            | self  |
+      | Logo Medpro                | https://medpro.vn/                           | self  |
       | Tiktok                     | https://www.tiktok.com/@medprovn             | blank |
       | Facebook                   | https://www.facebook.com/www.medpro.vn       | blank |
       | Zalo                       | https://zalo.me/4018184502979486994          | blank |
@@ -91,9 +91,51 @@ Feature: Homepage
   @verify_click_on_cooperate_health_facility
   Scenario Outline: Assert click on health facility logo
     And User should close homepage banner
-    And User should click on health facility logo "<header_element>"
+    And User should click on health facility logo "<hospital_name>" in slide "<slide_index>"
     Then User should redirect to "<url>" with type "<type>"
-    Then User should see health facility name on health facility detail page version "<version>"
+    Then User should see health facility name "<hospital_name>" on health facility detail page version "<version>"
     Examples:
-      | header_element             | url                                          | type  | version |
-      | Logo Medpro                | https://medpro.vn/                            | self  |        1|
+      | hospital_name                           | url                           | type | version | slide_index |
+      | Trung Tâm Nội Soi Tiêu Hoá Doctor Check | https://medpro.vn/drcheck     | self | 2       |  1    |
+      | Bệnh viện Lao và Bệnh phổi Cần Thơ      | https://medpro.vn/bvlaophoict | self | 1       |  4    |
+
+  @verify_click_on_carousel_banner_element
+  Scenario Outline: Assert click on carousel banner
+#    And User should close homepage banner
+    And User should click on carousel banner number "<banner_index>"
+    Then User should redirect to "<url>" with type "<type>"
+    Examples:
+      | banner_index             | url                                          | type  |
+      | 3                | https://medpro.vn/phong-kham-giam-can-medfit?utm_source=web&utm_medium=banner_homepage&utm_campaign=medpro_medfit                           | self  |
+
+  @verify_click_on_most_like_hospital_card
+  Scenario Outline: Assert click on most like hospital card
+#    And User should close homepage banner
+    And User should move to most like hospital section
+    And User should click on most like hospital card "<hospital_name>"
+    Then User should redirect to "<url>" with type "<type>"
+    Then User should see health facility name "<hospital_name>" on health facility detail page version "<version>"
+    Examples:
+      | hospital_name             | url                                          | type  | version |
+      | Bệnh Viện Mắt                | https://medpro.vn/bvmathcm                           | self  | 2|
+
+  @verify_click_on_most_like_hospital_booking_button
+  Scenario Outline: Assert click on most like hospital booking button
+#    And User should close homepage banner
+    And User should move to most like hospital section
+    And User should click on most like hospital "<hospital_name>" booking button
+    Then User should redirect to "<url>" with type "<type>"
+    Then User should see health facility name "<hospital_name>" on choose booking service page
+    Examples:
+      | hospital_name             | url                                          | type  |
+      | Bệnh Viện Mắt                | https://medpro.vn/bvmathcm/hinh-thuc-dat-kham?bookingPage=%2F&partnerId=bvmathcm                           | self  |
+
+  @verify_click_on_carousel_multi_banner_element
+  Scenario Outline: Assert click on carousel multi banner
+#    And User should close homepage banner
+    And User should move to carousel multi banner section
+    And User should click on carousel multi banner with slide number "<slide_index>" and banner number "<banner_index>"
+    Then User should redirect to "<url>" with type "<type>"
+    Examples:
+      | banner_index             | url                                          | type  | slide_index|
+      | 2                | https://medpro.vn/care247?utm_source=web&utm_medium=bannermini&utm_campaign=care247                           | blank  | 2|

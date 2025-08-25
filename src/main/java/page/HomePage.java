@@ -4,6 +4,7 @@ import java.awt.Desktop.Action;
 import java.time.Duration;
 import java.util.HashMap;
 
+import core.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -23,6 +24,7 @@ public class HomePage extends ServiceLayout {
 		super(driver, action);
 
 	}
+	private String associatedHospitalLogoSelector = "//div[@class='styles_Cooperated__vJ51D']//span[contains(text(),'%s')]/../../..";
 
 	@FindBy(how = How.XPATH, using = "//div[@class='ant-modal-content']")
 	private WebElement homeBanner;
@@ -40,8 +42,12 @@ public class HomePage extends ServiceLayout {
 	private WebElement homeSpecialitySection;
 	@FindBy(how = How.XPATH, using = "//div[@class='styles_homeDownload__A3sQl']")
 	private WebElement homeDownloadAppSection;
+	@FindBy(how = How.XPATH, using = "(//div[@class='index_Rectangle3462__lLZRw'])[2]")
+	private WebElement homeMultiCarouselBannerRectangle;
 	@FindBy(how = How.XPATH, using = "//div[@class='styles_NewPackageMonth__y1ZOk']")
 	private WebElement homeReviewSection;
+	@FindBy(how = How.XPATH, using = "//div[@class='slick-arrow slick-next styles_btnNext__JVlZ3']")
+	private WebElement associatedHospitalNextButton;
 	@FindBy(how = How.XPATH, using = "//div[@class='styles_achievement__2LmHN']")
 	private WebElement homeSocialReviewSection;
 	@FindBy(how = How.XPATH, using = "//div[@class='styles_statistic__0XdP7']")
@@ -89,11 +95,26 @@ public class HomePage extends ServiceLayout {
 	public void clickOnCloseBannerBtn() {
 		clickOn(closeBannerBtn);
 	}
-
+	public void clickOnAssociatedHospital(String hospitalName) {
+		clickOnBy(By.xpath(String.format(associatedHospitalLogoSelector, hospitalName)));
+	}
 	public void clickOnFeatureByName(String ftName) {
 		clickOnBy(By.xpath(String.format(ftSelector, ftName)));
 	}
 	public boolean isFeatureVisibilityByName(String ftName) {
 		return isElementVisibilityBy(By.xpath(String.format(ftSelector, ftName)), 2);
+	}
+	public boolean isAssociatedHospitalLogoVisibilityByName(String hospitalName) {
+		return isElementVisibilityBy(By.xpath(String.format(associatedHospitalLogoSelector, hospitalName)), 2);
+	}
+
+	public void clickOnAssociatedHospitalNextButton() {
+		Actions action = new Actions(BaseTest.getDriver());
+		action.moveToElement(homeCarouselBanner).click(associatedHospitalNextButton).perform();
+	}
+
+	public void moveToCarouselMultiBannerSection() {
+		Actions actions = new Actions(BaseTest.getDriver());
+		actions.moveToElement(homeMultiCarouselBannerRectangle).perform();
 	}
 }

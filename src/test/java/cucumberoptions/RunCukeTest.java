@@ -19,7 +19,7 @@ import io.cucumber.testng.TestNGCucumberRunner;
 		"html:target/cucumber-reports/cucumber-pretty.html", 
 		"json:target/cucumber-reports/CucumberTestReport.json",
 		"rerun:target/cucumber-reports/rerun.txt" },
-		tags = "@verify_feature_element")
+		tags = "@verify_click_on_carousel_multi_banner_element")
 
 public class RunCukeTest {
 		private TestNGCucumberRunner testNGCucumberRunner;

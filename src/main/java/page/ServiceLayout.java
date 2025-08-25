@@ -1,12 +1,16 @@
 package page;
 
+import core.BaseTest;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 import core.BasePage;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ServiceLayout extends BasePage {
 
@@ -42,6 +46,9 @@ public class ServiceLayout extends BasePage {
 	@FindBy(how = How.XPATH, using = "//div[@class='styles_NewPackageMonth__opibT']")
 	private WebElement mostLikeCSYTSection;
 
+	@FindBy(how = How.XPATH, using = "//div[@class='styles_NewPackageMonth__opibT']/button")
+	private WebElement mostLikeCSYTShowAllBtn;
+
 	@FindBy(how = How.XPATH, using = "//div[@class='styles_NewDoctorTelemed__J0G0e']")
 	private WebElement telemedSection;
 
@@ -54,6 +61,17 @@ public class ServiceLayout extends BasePage {
 	@FindBy(how = How.XPATH, using = "//div[@class='slick-arrow slick-next styles_btnNext__s56Fp']")
 	private WebElement ftNextButton;
 
+	@FindBy(how = How.XPATH, using = "//div[@class='slick-arrow slick-next styles_btnNext__O74q2']")
+	private WebElement mostLikeHospitalNextButton;
+
+	@FindBy(how = How.XPATH, using = "//div[@class='styles_CarouselBannerDesktop__04f02']//div[@class='slick-slide slick-active slick-current']")
+	private WebElement activeCarouselBannerSelector;
+
+	private String activeCarouselMultiBannerSelector = "//div[@class='styles_CarouselBannerDesktop__ijLFa']//div[contains(@class,'slick-active')][%d]";
+	private String mostLikeHospitalCardSelector = "//div[@class='styles_DetailPackageMonth__ti8cF']//span[contains(text(),'%s')]/../../..";
+	private String mostLikeHospitalCardButtonSelector = "//div[@class='styles_DetailPackageMonth__ti8cF']//span[contains(text(),'%s')]/../following-sibling::button";
+	private String carouselBannerIndicatedBtnSelector = "//div[@class='styles_CarouselBannerDesktop__04f02']//ul[@class='slick-dots slick-dots-bottom']/li[%d]";
+	private String carouselMultiBannerIndicatedBtnSelector = "//div[@class='styles_CarouselBannerDesktop__ijLFa']//ul[@class='slick-dots slick-dots-bottom']/li[%d]";
 	protected String ftSelector = "//div[@class='styles_serviceHeader__rJZ7Q']//h3[contains(text(),'%s')]";
 
 	public void navigateToHomePage() {
@@ -109,5 +127,47 @@ public class ServiceLayout extends BasePage {
 	}
 	public void clickOnFtNextButton() {
 		clickOn(ftNextButton);
+	}
+
+	public void clickOnCarouselBannerIndicatedButton(int index) {
+		clickOnBy(By.xpath(String.format(carouselBannerIndicatedBtnSelector,index)));
+	}
+	public void clickOnCarouselBanner(int index) throws InterruptedException {
+		Actions actions = new Actions(BaseTest.getDriver());
+		WebElement indicatedButton = getDriverWait().until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format(carouselBannerIndicatedBtnSelector,index))));
+		actions.moveToElement(indicatedButton).click(indicatedButton).perform();
+		Thread.sleep(2000);
+		actions.click(activeCarouselBannerSelector).perform();
+//		actions.moveToElement(indicatedButton).click(indicatedButton).click(activeCarouselBannerSelector).perform();
+	}
+
+	public void clickOnMultiCarouselBanner(int slideNumber, int bannerNumber) throws InterruptedException {
+		Actions actions = new Actions(BaseTest.getDriver());
+		WebElement indicatedButton = getDriverWait().until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format(carouselMultiBannerIndicatedBtnSelector,slideNumber))));
+		actions.click(indicatedButton).perform();
+		Thread.sleep(2000);
+		WebElement banner = getDriverWait().until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format(activeCarouselMultiBannerSelector, bannerNumber))));
+		actions.click(banner).perform();
+	}
+
+	public void clickOnMostLikeHospitalCard(String hospitalName) {
+		clickOnBy(By.xpath(String.format(mostLikeHospitalCardSelector,hospitalName)));
+	}
+
+	public void moveToMostLikeHospitalSection() {
+		Actions actions = new Actions(BaseTest.getDriver());
+		actions.moveToElement(mostLikeCSYTShowAllBtn).perform();
+	}
+	public void clickOnMostLikeHospitalNextBtn() {
+		clickOn(mostLikeHospitalNextButton);
+	}
+
+	public void clickOnMostLikeHospitalBookingButton(String hospitalName) {
+		clickOnBy(By.xpath(String.format(mostLikeHospitalCardButtonSelector, hospitalName)));
+	}
+
+
+	public boolean isMostLikeHospitalCardDisplayed(String hospitalName) {
+		return isElementVisibilityBy(By.xpath(String.format(mostLikeHospitalCardSelector,hospitalName)));
 	}
 }
