@@ -49,6 +49,11 @@ public class ServiceLayout extends BasePage {
 	@FindBy(how = How.XPATH, using = "//div[@class='styles_NewPackageMonth__opibT']/button")
 	private WebElement mostLikeCSYTShowAllBtn;
 
+	@FindBy(how = How.XPATH, using = "//div[@class='styles_NewDoctorTelemed__J0G0e']/button")
+	private WebElement telemedShowAllBtn;
+	@FindBy(how = How.XPATH, using = "//div[@class='styles_NewBookingPackage__YfRIj']/button")
+	private WebElement healthPackageShowAllBtn;
+
 	@FindBy(how = How.XPATH, using = "//div[@class='styles_NewDoctorTelemed__J0G0e']")
 	private WebElement telemedSection;
 
@@ -63,13 +68,26 @@ public class ServiceLayout extends BasePage {
 
 	@FindBy(how = How.XPATH, using = "//div[@class='slick-arrow slick-next styles_btnNext__O74q2']")
 	private WebElement mostLikeHospitalNextButton;
-
+	@FindBy(how = How.XPATH, using = "//div[@class='slick-arrow slick-next styles_btnNext__uUc8r']")
+	private WebElement telemedNextButton;
+	@FindBy(how = How.XPATH, using = "//div[@class='slick-arrow slick-next styles_btnNext__Fv6e1']")
+	private WebElement healthPackageNextButton;
 	@FindBy(how = How.XPATH, using = "//div[@class='styles_CarouselBannerDesktop__04f02']//div[@class='slick-slide slick-active slick-current']")
 	private WebElement activeCarouselBannerSelector;
+	@FindBy(how = How.XPATH, using = "//div[@class='styles_BookingPackageHeaderButton__9Fjna']//span[contains(text(),'Sức khỏe')]/..")
+	private WebElement healthTabPackage;
+	@FindBy(how = How.XPATH, using = "//div[@class='styles_BookingPackageHeaderButton__9Fjna']//span[contains(text(),'Xét nghiệm')]/..")
+	private WebElement testingTabPackage;
+	@FindBy(how = How.XPATH, using = "//div[@class='styles_BookingPackageHeaderButton__9Fjna']//span[contains(text(),'Tiêm chủng')]/..")
+	private WebElement vaccineTabPackage;
 
 	private String activeCarouselMultiBannerSelector = "//div[@class='styles_CarouselBannerDesktop__ijLFa']//div[contains(@class,'slick-active')][%d]";
 	private String mostLikeHospitalCardSelector = "//div[@class='styles_DetailPackageMonth__ti8cF']//span[contains(text(),'%s')]/../../..";
+	private String telemedDoctorCardSelector = "//div[@class='styles_NewDoctorTelemed__J0G0e']//h2[contains(text(),'%s')]/../../..";
+	private String healthPackageCardSelector = "//div[@class='styles_BookingPackageName__OywZ3']//h2[contains(text(),'%s')]/../../../..";
 	private String mostLikeHospitalCardButtonSelector = "//div[@class='styles_DetailPackageMonth__ti8cF']//span[contains(text(),'%s')]/../following-sibling::button";
+	private String telemedDoctorCardButtonSelector = "//div[@class='styles_NewDoctorTelemed__J0G0e']//h2[contains(text(),'%s')]/../../../div//button";
+	private String healthPackageCardButtonSelector = "//div[@class='styles_BookingPackageName__OywZ3']//h2[contains(text(),'%s')]/../../../../div//button";
 	private String carouselBannerIndicatedBtnSelector = "//div[@class='styles_CarouselBannerDesktop__04f02']//ul[@class='slick-dots slick-dots-bottom']/li[%d]";
 	private String carouselMultiBannerIndicatedBtnSelector = "//div[@class='styles_CarouselBannerDesktop__ijLFa']//ul[@class='slick-dots slick-dots-bottom']/li[%d]";
 	protected String ftSelector = "//div[@class='styles_serviceHeader__rJZ7Q']//h3[contains(text(),'%s')]";
@@ -153,21 +171,62 @@ public class ServiceLayout extends BasePage {
 	public void clickOnMostLikeHospitalCard(String hospitalName) {
 		clickOnBy(By.xpath(String.format(mostLikeHospitalCardSelector,hospitalName)));
 	}
+	public void clickOnTelemedDoctorCard(String doctorName) {
+		clickOnBy(By.xpath(String.format(telemedDoctorCardSelector,doctorName)));
+	}
+	public void clickOnHealthPackageCard(String packageName) {
+		clickOnBy(By.xpath(String.format(healthPackageCardSelector,packageName)));
+	}
+	public void clickOnHealthTabPackage() {
+		clickOn(healthTabPackage);
+	}
+	public void clickOnTestingTabPackage() {
+		clickOn(testingTabPackage);
+	}
+	public void clickOnVaccineTabPackage() {
+		clickOn(vaccineTabPackage);
+	}
+
 
 	public void moveToMostLikeHospitalSection() {
 		Actions actions = new Actions(BaseTest.getDriver());
 		actions.moveToElement(mostLikeCSYTShowAllBtn).perform();
 	}
+	public void moveToTelemedSection() {
+		Actions actions = new Actions(BaseTest.getDriver());
+		actions.moveToElement(telemedShowAllBtn).perform();
+	}
+	public void moveToHealthPackageSection() {
+		Actions actions = new Actions(BaseTest.getDriver());
+		actions.moveToElement(healthPackageShowAllBtn).perform();
+	}
 	public void clickOnMostLikeHospitalNextBtn() {
 		clickOn(mostLikeHospitalNextButton);
+	}
+	public void clickOnTelemedNextBtn() {
+		clickOn(telemedNextButton);
+	}
+	public void clickOnHealthPackageNextBtn() {
+		clickOn(healthPackageNextButton);
 	}
 
 	public void clickOnMostLikeHospitalBookingButton(String hospitalName) {
 		clickOnBy(By.xpath(String.format(mostLikeHospitalCardButtonSelector, hospitalName)));
 	}
-
+	public void clickOnTelemedBookingButton(String doctorName) {
+		clickOnBy(By.xpath(String.format(telemedDoctorCardButtonSelector, doctorName)));
+	}
+	public void clickOnHealthPackageBookingButton(String packageName) {
+		clickOnBy(By.xpath(String.format(healthPackageCardButtonSelector, packageName)));
+	}
 
 	public boolean isMostLikeHospitalCardDisplayed(String hospitalName) {
 		return isElementVisibilityBy(By.xpath(String.format(mostLikeHospitalCardSelector,hospitalName)));
+	}
+	public boolean isTelemedCardDisplayed(String doctorName) {
+		return isElementVisibilityBy(By.xpath(String.format(telemedDoctorCardSelector,doctorName)));
+	}
+	public boolean isHealthPackageCardDisplayed(String packageName) {
+		return isElementVisibilityBy(By.xpath(String.format(healthPackageCardSelector,packageName)));
 	}
 }

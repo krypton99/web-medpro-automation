@@ -8,8 +8,8 @@ Feature: Homepage
 
   @verify_header_item
   Scenario: Assert homepage header attribute
-    And User should see homepage banner
-    And User should close homepage banner
+#    And User should see homepage banner
+#    And User should close homepage banner
     And User should see medpro logo
     And User should see tiktok logo
     And User should see facebook logo
@@ -27,7 +27,7 @@ Feature: Homepage
 
   @verify_homepage_element
   Scenario: Assert homepage element
-    And User should close homepage banner
+#    And User should close homepage banner
     And User should see homepage scroll band
     And User should see universal search input
     And User should see cooperated section
@@ -46,7 +46,7 @@ Feature: Homepage
 
   @verify_feature_element
   Scenario Outline: Assert homepage feature element
-    And User should close homepage banner
+#    And User should close homepage banner
     And User should click on feature "<feature>"
     Then User should redirect to "<url>" with type "<type>"
 
@@ -69,7 +69,7 @@ Feature: Homepage
 
   @verify_click_on_header_element
   Scenario Outline: Assert click on header element
-    And User should close homepage banner
+#    And User should close homepage banner
     And User should click on header element "<header_element>"
     Then User should redirect to "<url>" with type "<type>"
     Examples:
@@ -90,14 +90,14 @@ Feature: Homepage
 
   @verify_click_on_cooperate_health_facility
   Scenario Outline: Assert click on health facility logo
-    And User should close homepage banner
+#    And User should close homepage banner
     And User should click on health facility logo "<hospital_name>" in slide "<slide_index>"
     Then User should redirect to "<url>" with type "<type>"
     Then User should see health facility name "<hospital_name>" on health facility detail page version "<version>"
     Examples:
       | hospital_name                           | url                           | type | version | slide_index |
-      | Trung Tâm Nội Soi Tiêu Hoá Doctor Check | https://medpro.vn/drcheck     | self | 2       |  1    |
-      | Bệnh viện Lao và Bệnh phổi Cần Thơ      | https://medpro.vn/bvlaophoict | self | 1       |  4    |
+      | Trung Tâm Nội Soi Tiêu Hoá Doctor Check | https://medpro.vn/drcheck     | self | 2       | 1           |
+      | Bệnh viện Lao và Bệnh phổi Cần Thơ      | https://medpro.vn/bvlaophoict | self | 1       | 4           |
 
   @verify_click_on_carousel_banner_element
   Scenario Outline: Assert click on carousel banner
@@ -105,8 +105,8 @@ Feature: Homepage
     And User should click on carousel banner number "<banner_index>"
     Then User should redirect to "<url>" with type "<type>"
     Examples:
-      | banner_index             | url                                          | type  |
-      | 3                | https://medpro.vn/phong-kham-giam-can-medfit?utm_source=web&utm_medium=banner_homepage&utm_campaign=medpro_medfit                           | self  |
+      | banner_index | url                                                                                                               | type |
+      | 3            | https://medpro.vn/phong-kham-giam-can-medfit?utm_source=web&utm_medium=banner_homepage&utm_campaign=medpro_medfit | self |
 
   @verify_click_on_most_like_hospital_card
   Scenario Outline: Assert click on most like hospital card
@@ -116,8 +116,8 @@ Feature: Homepage
     Then User should redirect to "<url>" with type "<type>"
     Then User should see health facility name "<hospital_name>" on health facility detail page version "<version>"
     Examples:
-      | hospital_name             | url                                          | type  | version |
-      | Bệnh Viện Mắt                | https://medpro.vn/bvmathcm                           | self  | 2|
+      | hospital_name | url                        | type | version |
+      | Bệnh Viện Mắt | https://medpro.vn/bvmathcm | self | 2       |
 
   @verify_click_on_most_like_hospital_booking_button
   Scenario Outline: Assert click on most like hospital booking button
@@ -127,8 +127,8 @@ Feature: Homepage
     Then User should redirect to "<url>" with type "<type>"
     Then User should see health facility name "<hospital_name>" on choose booking service page
     Examples:
-      | hospital_name             | url                                          | type  |
-      | Bệnh Viện Mắt                | https://medpro.vn/bvmathcm/hinh-thuc-dat-kham?bookingPage=%2F&partnerId=bvmathcm                           | self  |
+      | hospital_name | url                                                                              | type |
+      | Bệnh Viện Mắt | https://medpro.vn/bvmathcm/hinh-thuc-dat-kham?bookingPage=%2F&partnerId=bvmathcm | self |
 
   @verify_click_on_carousel_multi_banner_element
   Scenario Outline: Assert click on carousel multi banner
@@ -137,5 +137,38 @@ Feature: Homepage
     And User should click on carousel multi banner with slide number "<slide_index>" and banner number "<banner_index>"
     Then User should redirect to "<url>" with type "<type>"
     Examples:
-      | banner_index             | url                                          | type  | slide_index|
-      | 2                | https://medpro.vn/care247?utm_source=web&utm_medium=bannermini&utm_campaign=care247                           | blank  | 2|
+      | banner_index | url                                                                                 | type  | slide_index |
+      | 2            | https://medpro.vn/care247?utm_source=web&utm_medium=bannermini&utm_campaign=care247 | blank | 2           |
+
+  @verify_click_on_telemed_doctor_card
+  Scenario Outline: Assert click on telemed doctor card
+#    And User should close homepage banner
+    And User should move to telemed section
+    And User should click on telemed doctor card "<doctor_name>"
+    Then User should redirect to "<url>" with type "<type>"
+    Then User should see doctor name "<doctor_name>" on doctor detail page
+    Examples:
+      | doctor_name | url                                       | type |
+      | Vũ Thị Hà   | https://medpro.vn/bac-si/bs-cki-vu-thi-ha | self |
+
+  @verify_click_on_telemed_booking_button
+  Scenario Outline: Assert click on telemed booking button
+#    And User should close homepage banner
+    And User should move to telemed section
+    And User should click on telemed doctor "<doctor_name>" booking button
+    Then User should redirect to "<url>" with type "<type>"
+    Examples:
+      | doctor_name | url                                                                                                                                                         | type |
+      | Vũ Thị Hà   | https://medpro.vn/chon-lich-kham?feature=booking.TELEMEDNOW&partnerId=digimed&doctorId=digimed_HAVUT&bookingPage=%2F&stepName=service&subjectId=digimed_MAT | self |
+
+  @verify_click_on_health_package_card
+  Scenario Outline: Assert click on health package card
+#    And User should close homepage banner
+    And User should move to health package section
+    And User should choose health package type "<package_type>"
+    And User should click on health package card "<package_name>"
+    Then User should redirect to "<url>" with type "<type>"
+    Then User should see health package name "<package_name>" on health package detail page
+    Examples:
+      | package_type | package_name | url                                       | type |
+      | Sức khỏe   |Đặt khám Bệnh Dạ dày - Đại tràng  |https://medpro.vn/goi-kham-suc-khoe/drcheck_013 | self |

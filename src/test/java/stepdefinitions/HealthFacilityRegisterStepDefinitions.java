@@ -2,6 +2,7 @@ package stepdefinitions;
 
 import java.io.IOException;
 
+import io.cucumber.java.en.And;
 import org.testng.annotations.DataProvider;
 
 import core.BasePage;
@@ -68,4 +69,6 @@ public class HealthFacilityRegisterStepDefinitions {
 		//healthFacilityRegisterPage.clickOnSubmitBtn();
 	    Thread.sleep(10000);
 	}
+
+
 }

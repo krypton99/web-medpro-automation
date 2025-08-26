@@ -293,4 +293,52 @@ public class HomePageStepDefinitions {
 	public void userShouldClickOnCarouselMultiBannerWithSlideNumberAndBannerNumber(String slideNumber, String bannerNumber) throws InterruptedException {
 		homePage.clickOnMultiCarouselBanner(Integer.parseInt(slideNumber), Integer.parseInt(bannerNumber));
 	}
+
+	@And("User should move to telemed section")
+	public void userShouldMoveToTelemedSection() {
+		homePage.moveToTelemedSection();
+	}
+
+	@And("User should click on telemed doctor card {string}")
+	public void userShouldClickOnTelemedDoctorCard(String doctorName) throws InterruptedException {
+		while (!homePage.isTelemedCardDisplayed(doctorName.trim())) {
+			homePage.clickOnTelemedNextBtn();
+		}
+		homePage.clickOnTelemedDoctorCard(doctorName.trim());
+		Thread.sleep(2000);
+	}
+
+
+	@And("User should click on telemed doctor {string} booking button")
+	public void userShouldClickOnTelemedDoctorBookingButton(String doctorName) throws InterruptedException {
+		while (!homePage.isTelemedCardDisplayed(doctorName.trim())) {
+			homePage.clickOnTelemedNextBtn();
+		}
+		homePage.clickOnTelemedBookingButton(doctorName.trim());
+		Thread.sleep(2000);
+	}
+
+	@And("User should move to health package section")
+	public void userShouldMoveToHealthPackageSection() {
+		homePage.moveToHealthPackageSection();
+	}
+
+	@And("User should choose health package type {string}")
+	public void userShouldChooseHealthPackageType(String type) {
+		switch (type) {
+			case "Sức khỏe" -> homePage.clickOnHealthTabPackage();
+			case "Xét nghiệm" -> homePage.clickOnTestingTabPackage();
+			case "Tiêm chủng" -> homePage.clickOnVaccineTabPackage();
+		}
+	}
+	@And("User should click on health package card {string}")
+	public void userShouldClickOnHealthPackageCard(String packageName) throws InterruptedException {
+		while (!homePage.isHealthPackageCardDisplayed(packageName.trim())) {
+			homePage.clickOnHealthPackageNextBtn();
+		}
+		homePage.clickOnHealthPackageCard(packageName.trim());
+		Thread.sleep(2000);
+	}
+
+
 }

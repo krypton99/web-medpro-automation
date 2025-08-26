@@ -13,13 +13,14 @@ import io.cucumber.testng.FeatureWrapper;
 import io.cucumber.testng.PickleWrapper;
 import io.cucumber.testng.TestNGCucumberRunner;
 
-@CucumberOptions(features = "src/test/resources/features", glue = "stepdefinitions", 
+@CucumberOptions(features = "src/test/resources/features", glue = "stepdefinitions",
 		plugin = { 
 		"pretty",
 		"html:target/cucumber-reports/cucumber-pretty.html", 
 		"json:target/cucumber-reports/CucumberTestReport.json",
-		"rerun:target/cucumber-reports/rerun.txt" },
-		tags = "@verify_click_on_carousel_multi_banner_element")
+		"rerun:target/cucumber-reports/rerun.txt" }
+		, tags = "@verify_click_on_health_package_card"
+)
 
 public class RunCukeTest {
 		private TestNGCucumberRunner testNGCucumberRunner;
