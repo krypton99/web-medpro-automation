@@ -19,7 +19,7 @@ import io.cucumber.testng.TestNGCucumberRunner;
 		"html:target/cucumber-reports/cucumber-pretty.html", 
 		"json:target/cucumber-reports/CucumberTestReport.json",
 		"rerun:target/cucumber-reports/rerun.txt" }
-		, tags = "@verify_click_on_health_package_card"
+		, tags = "@verify_click_on_download_app_button"
 )
 
 public class RunCukeTest {
@@ -37,9 +37,7 @@ public class RunCukeTest {
 			// Chạy một kịch bản riêng lẻ bằng cách lấy pickle từ PickleWrapper
 	        testNGCucumberRunner.runScenario(pickleWrapper.getPickle());  
 	    }
-		
-		
-		
+
 		// DataProvider cung cấp các scenarios cho phương thức kiểm thử  
 		@DataProvider(name = "scenarios")  
 		public Object[][] scenarios() {  

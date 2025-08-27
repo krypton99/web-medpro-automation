@@ -253,6 +253,10 @@ public class BasePage {
 		wait.until(ExpectedConditions.visibilityOf(element));
 		return element.getText();
 	}
+	public String getAttribute(WebElement element, String name) {
+		wait.until(ExpectedConditions.visibilityOf(element));
+		return element.getAttribute(name);
+	}
 
 	public BasePage(WebDriver driver, Actions action) {
 		this.driver = driver;

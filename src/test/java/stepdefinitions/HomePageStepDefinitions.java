@@ -341,4 +341,37 @@ public class HomePageStepDefinitions {
 	}
 
 
+	@And("User should click on health package {string} booking button")
+	public void userShouldClickOnHealthPackageBookingButton(String packageName) throws InterruptedException {
+		while (!homePage.isHealthPackageCardDisplayed(packageName.trim())) {
+			homePage.clickOnHealthPackageNextBtn();
+		}
+		homePage.clickOnHealthPackageBookingButton(packageName.trim());
+		Thread.sleep(2000);
+	}
+
+	@And("User should move to speciality section")
+	public void userShouldMoveToSpecialitySection() {
+		homePage.moveToSpecialitySection();
+	}
+
+	@And("User should click on speciality {string}")
+	public void userShouldClickOnSpeciality(String speciality) throws InterruptedException {
+		homePage.clickOnSpeciality(speciality);
+		Thread.sleep(3000);
+	}
+
+	@And("User should click on download app {string} button")
+	public void userShouldClickOnDownloadAppButton(String platform) throws InterruptedException {
+		if(platform.equals("android")) {
+			homePage.clickOnDownloadAppAndroid();
+		} else if(platform.equals("ios")) {
+			homePage.clickOnDownloadAppIOS();
+		}
+		Thread.sleep(2000);
+	}
+
+	@And("User should move to download app section")
+	public void userShouldMoveToDownloadAppSection() {
+	}
 }

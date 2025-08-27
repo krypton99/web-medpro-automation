@@ -25,7 +25,7 @@ public class HomePage extends ServiceLayout {
 
 	}
 	private String associatedHospitalLogoSelector = "//div[@class='styles_Cooperated__vJ51D']//span[contains(text(),'%s')]/../../..";
-
+	private String specialitySelector = "//div[@class='styles_MPSpecialistCard__wEym9']//div[contains(text(),'%s')]/..";
 	@FindBy(how = How.XPATH, using = "//div[@class='ant-modal-content']")
 	private WebElement homeBanner;
 	@FindBy(how = How.XPATH, using = "//button[@class='ant-btn ant-btn-default styles_btnAntd__zap7d styles_btnClose__aaIs_']")
@@ -44,6 +44,13 @@ public class HomePage extends ServiceLayout {
 	private WebElement homeDownloadAppSection;
 	@FindBy(how = How.XPATH, using = "(//div[@class='index_Rectangle3462__lLZRw'])[2]")
 	private WebElement homeMultiCarouselBannerRectangle;
+	@FindBy(how = How.XPATH, using = "//div[@class='styles_groupButtonDownload__9c7DZ']//img[@alt='Tải ứng dụng App Store']/../../..")
+	private WebElement downloadAppIOS;
+	@FindBy(how = How.XPATH, using = "//div[@class='styles_groupButtonDownload__9c7DZ']//img[@alt='Tải ứng dụng Google Play']/../../..")
+	private WebElement downloadAppAndroid;
+	@FindBy(how = How.XPATH, using = "//div[@class='styles_serviceItem__rXAzb styles_right__2xFMu']")
+	private WebElement downloadAppElement;
+
 	@FindBy(how = How.XPATH, using = "//div[@class='styles_NewPackageMonth__y1ZOk']")
 	private WebElement homeReviewSection;
 	@FindBy(how = How.XPATH, using = "//div[@class='slick-arrow slick-next styles_btnNext__JVlZ3']")
@@ -52,6 +59,8 @@ public class HomePage extends ServiceLayout {
 	private WebElement homeSocialReviewSection;
 	@FindBy(how = How.XPATH, using = "//div[@class='styles_statistic__0XdP7']")
 	private WebElement homeStatisticSection;
+	@FindBy(how = How.XPATH, using = "//div[@class='styles_MPSpecialistCard__wEym9']/button")
+	private WebElement specialityShowAllBtn;
 	@FindBy(how = How.XPATH, using = "//div[@class='styles_news__3c5mf']")
 	private WebElement homeMedicalNewsSection;
 	@FindBy(how = How.XPATH, using = "//div[@class='styles_supportMethod__CHIzY']")
@@ -101,6 +110,9 @@ public class HomePage extends ServiceLayout {
 	public void clickOnFeatureByName(String ftName) {
 		clickOnBy(By.xpath(String.format(ftSelector, ftName)));
 	}
+	public void clickOnSpeciality(String speciality) {
+		clickOnBy(By.xpath(String.format(specialitySelector, speciality)));
+	}
 	public boolean isFeatureVisibilityByName(String ftName) {
 		return isElementVisibilityBy(By.xpath(String.format(ftSelector, ftName)), 2);
 	}
@@ -112,7 +124,20 @@ public class HomePage extends ServiceLayout {
 		Actions action = new Actions(BaseTest.getDriver());
 		action.moveToElement(homeCarouselBanner).click(associatedHospitalNextButton).perform();
 	}
-
+	public void clickOnDownloadAppIOS() {
+		clickOn(downloadAppIOS);
+	}
+	public void clickOnDownloadAppAndroid() {
+		clickOn(downloadAppAndroid);
+	}
+	public void moveToSpecialitySection() {
+		Actions actions = new Actions(BaseTest.getDriver());
+		actions.moveToElement(specialityShowAllBtn).perform();
+	}
+	public void moveToDownloadAppSection() {
+		Actions actions = new Actions(BaseTest.getDriver());
+		actions.moveToElement(downloadAppElement).perform();
+	}
 	public void moveToCarouselMultiBannerSection() {
 		Actions actions = new Actions(BaseTest.getDriver());
 		actions.moveToElement(homeMultiCarouselBannerRectangle).perform();

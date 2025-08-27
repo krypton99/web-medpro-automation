@@ -170,5 +170,37 @@ Feature: Homepage
     Then User should redirect to "<url>" with type "<type>"
     Then User should see health package name "<package_name>" on health package detail page
     Examples:
-      | package_type | package_name | url                                       | type |
-      | Sức khỏe   |Đặt khám Bệnh Dạ dày - Đại tràng  |https://medpro.vn/goi-kham-suc-khoe/drcheck_013 | self |
+      | package_type | package_name                     | url                                             | type |
+      | Sức khỏe     | Đặt khám Bệnh Dạ dày - Đại tràng | https://medpro.vn/goi-kham-suc-khoe/drcheck_013 | self |
+
+  @verify_click_on_health_package_booking_button
+  Scenario Outline: Assert click on health package booking button
+#    And User should close homepage banner
+    And User should move to health package section
+    And User should choose health package type "<package_type>"
+    And User should click on health package "<package_name>" booking button
+    Then User should redirect to "<url>" with type "<type>"
+    Examples:
+      | package_type | package_name                     | url                                                                                                                              | type |
+      | Sức khỏe     | Đặt khám Bệnh Dạ dày - Đại tràng | https://medpro.vn/chon-lich-kham?feature=booking.UTDDT&partnerId=drcheck&bookingPage=%2F&stepName=service&subjectId=drcheck_GKCS | self |
+
+  @verify_click_on_speciality
+  Scenario Outline: Assert click on speciality
+#    And User should close homepage banner
+    And User should move to speciality section
+    And User should click on speciality "<speciality>"
+    Then User should redirect to search result page with search keyword "<speciality>" and tab "<tab>"
+    Examples:
+      | speciality    | tab         |
+      | Nội Tổng Quát | Chuyên khoa |
+
+  @verify_click_on_download_app_button
+  Scenario Outline: Assert click on download app button
+    And User should close homepage banner
+    And User should move to download app section
+    And User should click on download app "<platform>" button
+    Then User should redirect to "<url>" with type "<type>"
+    Examples:
+      | platform    | url         |type |
+      | android | https://play.google.com/store/apps/details?id=vn.com.medpro | blank |
+      | ios | https://apps.apple.com/us/app/medpro-%C4%91%E1%BA%B7t-l%E1%BB%8Bch-kh%C3%A1m-b%E1%BB%87nh/id1481561748 | blank |
